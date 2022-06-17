@@ -1,0 +1,6 @@
+<button (click)="onButtonClick($event)" 
+        [class]="'app-button ' + classNames"
+        [type]="behaviorType"
+        [disabled]="disabled">
+    <ng-content></ng-content>
+</button>

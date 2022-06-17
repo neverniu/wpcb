@@ -1,0 +1,32 @@
+import { NgModule } from "@angular/core";
+import { AddHotelComponent } from "./add-hotel/add-hotel.component";
+import { AuthRequiredRoutingModule } from "./authrequired-routing.module";
+import { HotelComponent } from "./hotel/hotel.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { SearchComponent } from "./search/search.component";
+
+@NgModule({
+    declarations: [
+        ProfileComponent,
+        SearchComponent,
+        HotelComponent,
+        AddHotelComponent
+    ],
+    imports:[
+        AuthRequiredRoutingModule,
+    ],
+    providers: [],
+    bootstrap: []
+}
+)
+export class AuthRequiredModule {
+    constructor(){
+        let baseStyles = [
+            "color: #fff",
+            "background-color: #444",
+            "padding: 2px 4px",
+            "border-radius: 2px"
+          ].join(";");
+        console.log("%cAuthRequired Module successfuly loaded.", baseStyles);
+    }
+}

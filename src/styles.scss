@@ -34,17 +34,27 @@ body {
 }
 
 app-about,
-app-add-hotel,
 app-auth,
 app-contact,
 app-home,
-app-hotel,
-app-page404,
-app-profile,
 app-register,
-app-search {
+app-search,
+app-profile,
+app-hotel,
+app-add-hotel,
+app-page404 {
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+//320-425px mobile
+//425-768px tablet
+//768-1024px desktop
+//1024-1280px large desktop
+//1280-1440px xlarge desktop
+//1440-1680px xxlarge desktop
+//1680-1920px xxxlarge desktop
+//1920-2560px yxlarge desktop
+//2560-3840px zxlarge desktop

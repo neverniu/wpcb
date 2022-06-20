@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    min-width: 1279px;
+    height: 60px;
+    margin-top: 1%;
+    border-bottom: 1px solid #E7E7F2;
+  }
+  
+  .header__left,
+  .header__right {
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .header__center > a {
+    font-size: 20px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #fcfcfd;
+  }
+  
+  a:hover {
+    color: #a5a5b5;
+  }
+  
+  a:active {
+    color: #ffffff;
+  }

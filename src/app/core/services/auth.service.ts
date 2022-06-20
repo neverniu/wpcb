@@ -7,6 +7,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +19,6 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone
   ) {
-
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -35,7 +35,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['search']);
+          this.router.navigate(['app/search']);
         });
         this.SetUserData(result.user);
       })
@@ -71,14 +71,18 @@ export class AuthService {
         window.alert(error);
       });
   }
-  get isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
+  }
+  isManager(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user.role === 'manager'
   }
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
-        this.router.navigate(['search']);
+        this.router.navigate(['app/search']);
       }
     });
   }
@@ -87,7 +91,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['app/search']);
         });
         this.SetUserData(result.user);
       })
@@ -113,7 +117,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['auth']);
     });
   }
 }

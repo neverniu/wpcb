@@ -12,7 +12,7 @@ export class RoleGuard implements CanActivate {
     public router: Router
   ){ }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.authService.isManager !== true) {
+    if(this.authService.isManager() !== true) {
       this.router.navigate(['app/search'])
     }
     return true;

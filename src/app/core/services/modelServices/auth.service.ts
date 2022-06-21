@@ -37,10 +37,12 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['app/search']);
         });
-        this.SetUserData(result.user);
+        //this.SetUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
+        localStorage.removeItem('user');
+        this.router.navigate(['auth']);
       });
   }
   SignUp(email: string, password: string) {
@@ -75,17 +77,9 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null ? true : false;
   }
-  get isManager() {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    const uid = user.uid;
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${uid}`
-    );
-    return userRef.valueChanges().subscribe((data) => {
-      if (data.role === 'manager') { return true; } 
-      else { return false; }
-    });
-  }
+
+  
+
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
@@ -116,9 +110,10 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      role: 'user',
     };
     return userRef.set(userData, {
-      merge: false,
+      merge: true,
     });
   }
   SignOut() {

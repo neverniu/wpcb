@@ -12,9 +12,9 @@ export class NoAuthGuard implements CanActivate {
     public router: Router
   ){ }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.authService.isLoggedIn !== false) {
+    if(this.authService.isLoggedIn === true) {
       this.router.navigate(['app/search'])
     }
-    return false;
+    return true;
   }
 }

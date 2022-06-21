@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../services/user';
+import { User } from '../models/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -58,7 +58,7 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.router.navigate(['verify']);
       });
   }
   ForgotPassword(passwordResetEmail: string) {
@@ -71,13 +71,20 @@ export class AuthService {
         window.alert(error);
       });
   }
-  isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null ? true : false;
   }
-  isManager(): boolean {
+  get isManager() {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user.role === 'manager'
+    const uid = user.uid;
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${uid}`
+    );
+    return userRef.valueChanges().subscribe((data) => {
+      if (data.role === 'manager') { return true; } 
+      else { return false; }
+    });
   }
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
@@ -111,7 +118,7 @@ export class AuthService {
       emailVerified: user.emailVerified,
     };
     return userRef.set(userData, {
-      merge: true,
+      merge: false,
     });
   }
   SignOut() {

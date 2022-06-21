@@ -1,27 +1,24 @@
-import { NgModule } from "@angular/core";
-import { ButtonComponent } from "src/app/core/components/button/button.component";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { ComponentsModule } from "src/app/core/components/components.module";
-import { AboutComponent } from "./about/about.component";
 import { AuthComponent } from "./auth/auth.component";
-import { ContactComponent } from "./contact/contact.component";
-import { HomeComponent } from "./home/home.component";
 import { NoAuthRoutingModule } from "./noauth-routing.module";
 import { RegisterComponent } from "./register/register.component";
+import { NoAuthGuard } from "src/app/core/services/guards/noauth-guard.service";
 
 @NgModule({
     declarations: [
-        HomeComponent,
-        AboutComponent,
-        ContactComponent,
         RegisterComponent,
         AuthComponent
     ],
     imports:[
         NoAuthRoutingModule,
-        ComponentsModule
+        ComponentsModule,
+        ReactiveFormsModule
     ],
-    providers: [],
+    providers: [NoAuthGuard],
     bootstrap: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 }
 )
 export class NoAuthModule {

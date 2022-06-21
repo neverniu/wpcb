@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Hotel } from '../services/hotel';
+import { Hotel } from '../models/hotel';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Injectable({

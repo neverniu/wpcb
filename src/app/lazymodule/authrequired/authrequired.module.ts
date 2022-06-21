@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { ComponentsModule } from "src/app/core/components/components.module";
-import { HotelService } from "src/app/core/services/hotel.service";
+import { HotelService } from "src/app/core/services/modelServices/hotel.service";
 import { AddHotelComponent } from "./add-hotel/add-hotel.component";
 import { AuthRequiredRoutingModule } from "./authrequired-routing.module";
 import { HotelComponent } from "./hotel/hotel.component";
